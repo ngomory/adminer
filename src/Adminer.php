@@ -28,10 +28,10 @@ class Adminer
      * @param array $headers Headers and token X-Webapp-Token | X-Webapp-Name
      * @return void
      */
-    static function webappModulo(array $modules, string $group = 'other', array $headers = [])
+    static function webappModulo(string $endpoint, array $modules, string $group = 'other', array $headers = [])
     {
 
-        $url = self::webappUrl($group, 'modulo', 'list');
+        $url = self::webappUrl($endpoint, $group, 'modulo', 'list');
         $result = self::curl('POST', $url, ['modules' => implode('|', $modules)], $headers);
 
         if ($result['success'] == false) {
@@ -155,7 +155,7 @@ class Adminer
 
         if ($response === false) {
             $error = curl_error($curl);
-            throw new \Exception('OrangeSms :  ' . $error);
+            throw new \Exception('Adminer : curl => ' . $error);
         }
 
         curl_close($curl);
